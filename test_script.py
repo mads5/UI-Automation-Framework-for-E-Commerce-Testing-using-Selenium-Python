@@ -128,8 +128,5 @@ class Login(unittest.TestCase):
         
     
 if __name__ == "__main__":
-    unittest.main()
-    result = Shop()
-    result = Address()
-    
+    unittest.main()   
     
