@@ -1,13 +1,16 @@
+import os
+import logging
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from config import base_url
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.select import Select
 from utils import generate_random_email, wait_for_element_visible
 
-class Login(object):
+class Login(unittest.TestCase):
     def closeAllChromeInstances():
         try:
             os.system("taskkill /im chromedriver.exe")
@@ -27,7 +30,7 @@ class Login(object):
     
         driver.find_element(By.ID('menu-item-50'))
         driver.click()
-        elmnt = WebdriverWait(browser, 2).until(EC.presence_of_element_located((By.XPATH, '//*[@id="reg_email"]')))
+        elmnt = WebdriverWait(driver, 2).until(EC.presence_of_element_located((By.XPATH, '//*[@id="reg_email"]')))
         elmnt.click()
         elmnt.send_keys('demo@dmail.com')
         elmnt.send_keys(Keys.TAB)
@@ -71,7 +74,7 @@ class Login(object):
         driver.find_element(By.XPATH('//*[@title="View your shopping cart"]'))
         driver.click()
         
-        elmnt = WebdriverWait(browser, 2).until(EC.presence_of_element_located((By.XPATH, '//*[@id="page-34"]/div/div[1]/form/table/tbody/tr[1]/td[3]')))
+        elmnt = WebdriverWait(driver, 2).until(EC.presence_of_element_located((By.XPATH, '//*[@id="page-34"]/div/div[1]/form/table/tbody/tr[1]/td[3]')))
         
         if elmnt = True:
             driver.find_element(By.XPATH('//*[@title="Remove this item"]'))
@@ -118,18 +121,14 @@ class Login(object):
         driver.find_element(By.XPATH('//*[@class="button"]'))
         driver.click()
         
-        elmnt = WebdriverWait(browser, 2).until(EC.presence_of_element_located((By.XPATH, "//*[text()='Address changed successfully.']")))
+        elmnt = WebdriverWait(driver, 2).until(EC.presence_of_element_located((By.XPATH, "//*[text()='Address changed successfully.']")))
         driver.find_element(By.XPATH('//*[@href="https://practice.automationtesting.in/my-account/edit-address/"]'))
         driver.click()
         elmnt = driver.find_element(By.XPATH('//*[contains(text(),'Centime')]'))
         
     
 if __name__ == "__main__":
-    
-    result = closeAllChromeInstances()
-    result = launchWebsite()
-    result = createAccount()
-    result = Login()
+    unittest.main()
     result = Shop()
     result = Address()
     
